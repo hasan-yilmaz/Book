@@ -26,7 +26,7 @@ namespace Book.DATA
         }
     
         public virtual DbSet<AppUser> AppUser { get; set; }
-        public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<MyBook> MyBook { get; set; }
     }
 }

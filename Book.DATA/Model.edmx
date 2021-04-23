@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="AppUserId" />
@@ -15,7 +15,15 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Book">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MyBook">
           <Key>
             <PropertyRef Name="BookId" />
           </Key>
@@ -27,53 +35,44 @@
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__Book__AppUserId__3B75D760">
+        <Association Name="FK__MyBook__AppUserI__3F466844">
           <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="MyBook" Type="Self.MyBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppUser">
               <PropertyRef Name="AppUserId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="MyBook">
               <PropertyRef Name="AppUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Book__CategoryId__3C69FB99">
+        <Association Name="FK__MyBook__Category__403A8C7D">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="MyBook" Type="Self.MyBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="MyBook">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BookModelStoreContainer">
           <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Book__AppUserId__3B75D760" Association="Self.FK__Book__AppUserId__3B75D760">
+          <EntitySet Name="MyBook" EntityType="Self.MyBook" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MyBook__AppUserI__3F466844" Association="Self.FK__MyBook__AppUserI__3F466844">
             <End Role="AppUser" EntitySet="AppUser" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="MyBook" EntitySet="MyBook" />
           </AssociationSet>
-          <AssociationSet Name="FK__Book__CategoryId__3C69FB99" Association="Self.FK__Book__CategoryId__3C69FB99">
+          <AssociationSet Name="FK__MyBook__Category__403A8C7D" Association="Self.FK__MyBook__Category__403A8C7D">
             <End Role="Category" EntitySet="Category" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="MyBook" EntitySet="MyBook" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -86,9 +85,31 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Book__AppUserId__3B75D760" FromRole="AppUser" ToRole="Book" />
+          <NavigationProperty Name="MyBook" Relationship="BookModel.FK__MyBook__AppUserI__3F466844" FromRole="AppUser" ToRole="MyBook" />
         </EntityType>
-        <EntityType Name="Book">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MyBook" Relationship="BookModel.FK__MyBook__Category__403A8C7D" FromRole="Category" ToRole="MyBook" />
+        </EntityType>
+        <EntityContainer Name="BookEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="MyBook" EntityType="BookModel.MyBook" />
+          <AssociationSet Name="FK__MyBook__AppUserI__3F466844" Association="BookModel.FK__MyBook__AppUserI__3F466844">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="MyBook" EntitySet="MyBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MyBook__Category__403A8C7D" Association="BookModel.FK__MyBook__Category__403A8C7D">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MyBook" EntitySet="MyBook" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="MyBook">
           <Key>
             <PropertyRef Name="BookId" />
           </Key>
@@ -99,55 +120,33 @@
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AppUser" Relationship="Self.FK__Book__AppUserId__3B75D760" FromRole="Book" ToRole="AppUser" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Book__CategoryId__3C69FB99" FromRole="Book" ToRole="Category" />
+          <NavigationProperty Name="AppUser" Relationship="BookModel.FK__MyBook__AppUserI__3F466844" FromRole="MyBook" ToRole="AppUser" />
+          <NavigationProperty Name="Category" Relationship="BookModel.FK__MyBook__Category__403A8C7D" FromRole="MyBook" ToRole="Category" />
         </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Book__CategoryId__3C69FB99" FromRole="Category" ToRole="Book" />
-        </EntityType>
-        <Association Name="FK__Book__AppUserId__3B75D760">
-          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+        <Association Name="FK__MyBook__AppUserI__3F466844">
+          <End Type="BookModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="BookModel.MyBook" Role="MyBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppUser">
               <PropertyRef Name="AppUserId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="MyBook">
               <PropertyRef Name="AppUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Book__CategoryId__3C69FB99">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+        <Association Name="FK__MyBook__Category__403A8C7D">
+          <End Type="BookModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="BookModel.MyBook" Role="MyBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="MyBook">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BookEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppUser" EntityType="Self.AppUser" />
-          <EntitySet Name="Book" EntityType="Self.Book" />
-          <EntitySet Name="Category" EntityType="Self.Category" />
-          <AssociationSet Name="FK__Book__AppUserId__3B75D760" Association="Self.FK__Book__AppUserId__3B75D760">
-            <End Role="AppUser" EntitySet="AppUser" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Book__CategoryId__3C69FB99" Association="Self.FK__Book__CategoryId__3C69FB99">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -165,25 +164,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Book">
-            <EntityTypeMapping TypeName="BookModel.Book">
-              <MappingFragment StoreEntitySet="Book">
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Writer" ColumnName="Writer" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="BookModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyBook">
+            <EntityTypeMapping TypeName="BookModel.MyBook">
+              <MappingFragment StoreEntitySet="MyBook">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Writer" ColumnName="Writer" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

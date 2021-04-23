@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="b68d9c0960cb404aa32c88e196e5de15" Name="Diagram1">
         <EntityTypeShape EntityType="BookModel.AppUser" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookModel.Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="BookModel.Category" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="BookModel.FK__Book__AppUserId__3B75D760" ManuallyRouted="false" />
-        <AssociationConnector Association="BookModel.FK__Book__CategoryId__3C69FB99" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="BookModel.MyBook" Width="1.5" PointX="3" PointY="2.875" />
+        <AssociationConnector Association="BookModel.FK__MyBook__AppUserI__3F466844" />
+        <AssociationConnector Association="BookModel.FK__MyBook__Category__403A8C7D" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

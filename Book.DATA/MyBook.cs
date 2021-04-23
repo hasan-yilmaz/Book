@@ -12,7 +12,7 @@ namespace Book.DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class MyBook
     {
         public int BookId { get; set; }
         public int AppUserId { get; set; }

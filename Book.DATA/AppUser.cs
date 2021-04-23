@@ -17,7 +17,7 @@ namespace Book.DATA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AppUser()
         {
-            this.Book = new HashSet<Book>();
+            this.MyBook = new HashSet<MyBook>();
         }
     
         public int AppUserId { get; set; }
@@ -27,6 +27,6 @@ namespace Book.DATA
         public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
+        public virtual ICollection<MyBook> MyBook { get; set; }
     }
 }
