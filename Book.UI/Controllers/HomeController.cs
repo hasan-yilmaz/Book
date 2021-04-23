@@ -38,7 +38,7 @@ namespace Book.UI.Controllers
             bool IsHaveToMail = db.AppUser.Where(s => s.Email.Equals(model.Email) && s.Password.Equals(model.Password) && s.IsActive).Any();
             if (IsHaveToMail)
             {
-                ViewBag.result = "Kullanıcı adı veya şifre hatalı lütfen tekrar deneyiniz...";
+                ViewBag.result = "Bu mail daha önce kullanılmış. Lütfen yeni bir mail adresi deneyiniz...";
                 return View();
             }
             AppUser appUser = new AppUser()
@@ -54,5 +54,7 @@ namespace Book.UI.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }
