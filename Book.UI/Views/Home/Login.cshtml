@@ -1,0 +1,32 @@
+﻿@model Book.UI.Models.LoginCRUDModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@if (ViewBag.result != null)
+{
+    <h1 class="warning"> @ViewBag.result</h1>
+}
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+
+        <div class="form-group">
+            @Html.TextBoxFor(s => s.Email, new { @class = "form-control", placeholder = "Email", required = "" })
+        </div>
+
+        <div class="form-group">
+            @Html.PasswordFor(s => s.Password, new { @class = "form-control", placeholder = "Şifre", required = "" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Giriş Yap" />
+        </div>
+
+    </div>
+}
+

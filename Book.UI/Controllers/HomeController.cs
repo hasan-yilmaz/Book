@@ -55,6 +55,34 @@ namespace Book.UI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Login(LoginCRUDModel model)
+        {
+            AppUser appUser = db.AppUser.Where(s => s.Email.Equals(model.Email) && s.Password.Equals(model.Password) && s.IsActive).SingleOrDefault();
+
+            if (appUser != null)
+            {
+                Session.Add("LoggedUser", appUser);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.result = "Kullanıcı adı veya şifre hatalı lütfen tekrar deneyiniz...";
+                return View();
+            }
+
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -109,6 +109,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Insert.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -118,6 +119,7 @@
     </Compile>
     <Compile Include="Models\AppUserCRUDModel.cs" />
     <Compile Include="Models\AppUserListVİewModel.cs" />
+    <Compile Include="Models\LoginCRUDModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
