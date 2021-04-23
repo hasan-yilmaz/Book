@@ -1,0 +1,30 @@
+﻿@using Book.DATA
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{
+
+    AppUser appUser = (AppUser)Session["LoggedUser"];
+
+    if (appUser != null)
+    {
+        <h2>Hoşgeldin @appUser.FullName</h2>
+    }
+}
+
+
+@if (Session["LoggedUser"] != null)
+{
+    <a href="@Url.Action("Index", "User")" class="btn btn-primary">Bilgilerim</a>
+    <a href="@Url.Action("Index", "MyBook")" class="btn btn-success">Kitaplarım</a>
+    <a href="@Url.Action("Logout", "Home")" class="btn btn-danger">Çıkış Yap</a>
+}
+else
+{
+    <a href="@Url.Action("Login", "Home")" class="btn btn-success">Giriş Yap</a>
+    <a href="@Url.Action("Insert", "Home")" class="btn btn-primary">Üye Ol</a>
+}

@@ -1,0 +1,34 @@
+﻿@model Book.UI.Models.AppUserCRUDModel
+@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>Insert</h2>
+
+@if (ViewBag.result != null)
+{
+    <h1 class="warning"> @ViewBag.result</h1>
+}
+
+@using (Html.BeginForm("Insert", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+
+        <div class="form-group">
+            @Html.TextBoxFor(s => s.FullName, new { @class = "form-control", placeholder = "Ad", required = "" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(s => s.Email, new { @class = "form-control", placeholder = "Email", required = "" })
+        </div>
+
+        <div class="form-group">
+            @Html.PasswordFor(s => s.Password, new { @class = "form-control", placeholder = "Şifre", requred = "" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Kayıt Ol" />
+        </div>
+
+    </div>
+}
