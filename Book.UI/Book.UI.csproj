@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -120,6 +121,8 @@
     </Compile>
     <Compile Include="Models\AppUserCRUDModel.cs" />
     <Compile Include="Models\AppUserListVİewModel.cs" />
+    <Compile Include="Models\CategoryCRUDModel.cs" />
+    <Compile Include="Models\CategoryListViewModel.cs" />
     <Compile Include="Models\LoginCRUDModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -135,6 +138,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Update.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -144,6 +148,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Picture\" />
+    <Folder Include="Views\Book\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Book.BIZ\Book.BIZ.csproj">

@@ -1,0 +1,23 @@
+﻿@using Book.UI.Models    @model List<CategoryListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Kategori AD</th>
+        
+    </tr>
+
+    @foreach (CategoryListViewModel cat in Model)
+    {
+        <tr>
+            <td>@cat.Name</td>
+        </tr>
+    }
+
+</table>
