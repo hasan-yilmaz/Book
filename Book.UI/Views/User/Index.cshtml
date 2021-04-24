@@ -1,0 +1,29 @@
+﻿@using Book.UI.Models
+@model List<AppUserListVİewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table table-bordered">
+    
+    <tr>
+        <th>Ad Soyad</th>
+        <th>Email</th>
+        <th>Şifre</th>
+        
+    </tr>
+
+    @foreach (AppUserListVİewModel appUser in Model)
+    {
+        <tr>
+            <td>@appUser.FullName</td>
+            <td>@appUser.Email</td>
+            <td>@appUser.Password</td>
+        </tr>
+    }
+
+</table>
