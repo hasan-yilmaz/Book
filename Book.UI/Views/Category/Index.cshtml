@@ -16,6 +16,8 @@
         <th>Kategori ID</th>
         <th>Kategori AD</th>
         <th>Güncelle</th>
+        <th>Durum</th>
+        <th>IsActive</th>
         
     </tr>
 
@@ -25,6 +27,27 @@
             <td>@cat.CategoryId</td>
             <td>@cat.Name</td>
             <td><a href="@Url.Action("Update","Category",new { @id=cat.CategoryId})" class="btn btn-success">Güncelle</a></td>
+            <td>
+                @if (cat.IsActive)
+                {
+                    <h3 class="label-primary">Aktif</h3>
+                }
+                else
+                {
+                    <h3 class="label-warning">Pasif</h3>
+                }
+            </td>
+
+            <td>
+                @if (cat.IsActive)
+                {
+                    <a href="@Url.Action("ActiveOrPassive","Category",new { @id=cat.CategoryId})" class="btn btn-success">Aktif</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("ActiveOrPassive","Category",new { @id=cat.CategoryId})" class="btn btn-danger">Pasif</a>
+                }
+            </td>
         </tr>
     }
 
