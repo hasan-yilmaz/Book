@@ -47,6 +47,33 @@ namespace Book.UI.Controllers
             }
         }
 
-       
+        [HttpGet]
+        public ActionResult Insert(int id=0)
+        {
+            return View();            
+        }
+
+        [HttpPost]
+        public ActionResult Insert(CategoryCRUDModel model)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
+
+            if (appUser != null)
+            {
+                Category category = new Category()
+                {
+                    CategoryId = model.CategoryId,
+                    Name = model.Name,
+                    IsActive = true
+                };
+                categoryOperation.Insert(category);
+
+                return RedirectToAction("Index", "Category");
+            }
+            else
+            {
+                return RedirectToAction("Login","Home");
+            }
+        }
     }
 }

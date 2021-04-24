@@ -1,4 +1,5 @@
-﻿@using Book.UI.Models    @model List<CategoryListViewModel>
+﻿@using Book.UI.Models    
+@model List<CategoryListViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,16 +7,22 @@
 
 <h2>Index</h2>
 
+<a href="@Url.Action("Insert","Category")" class="btn btn-success">Kategori Ekle</a>
+
+
 <table class="table table-bordered">
 
     <tr>
+        <th>Kategori ID</th>
         <th>Kategori AD</th>
+        
         
     </tr>
 
     @foreach (CategoryListViewModel cat in Model)
     {
         <tr>
+            <td>@cat.CategoryId</td>
             <td>@cat.Name</td>
         </tr>
     }
