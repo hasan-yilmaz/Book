@@ -125,6 +125,30 @@ namespace Book.UI.Controllers
             return RedirectToAction("Index", "Category");
         }
 
+        public ActionResult ActiveOrPassive(int id=0)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                Category category = categoryOperation.GetById(id);
+
+                if (category != null)
+                {
+                    category.IsActive = false;
+                }
+                else
+                {
+                    category.IsActive = true;
+                }
+                categoryOperation.Update(category);
+
+                return RedirectToAction("Index", "Category");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+        }
         
     }
 }
