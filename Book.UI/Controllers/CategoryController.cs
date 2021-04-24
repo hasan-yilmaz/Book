@@ -24,8 +24,6 @@ namespace Book.UI.Controllers
         {
             AppUser appUser = (AppUser)Session["LoggedUser"];
 
-            Category category = new Category();
-
             if (appUser != null)
             {
                
@@ -65,6 +63,9 @@ namespace Book.UI.Controllers
             {
                 Category category = new Category()
                 {
+
+                    AppUserId =appUser.AppUserId,
+
                     CategoryId = model.CategoryId,
                     Name = model.Name,
                     IsActive = true
