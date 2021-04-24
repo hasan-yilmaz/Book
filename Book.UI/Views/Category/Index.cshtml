@@ -15,7 +15,7 @@
     <tr>
         <th>Kategori ID</th>
         <th>Kategori AD</th>
-        
+        <th>Güncelle</th>
         
     </tr>
 
@@ -24,6 +24,7 @@
         <tr>
             <td>@cat.CategoryId</td>
             <td>@cat.Name</td>
+            <td><a href="@Url.Action("Update","Category",new { @id=cat.CategoryId})" class="btn btn-success">Güncelle</a></td>
         </tr>
     }
 

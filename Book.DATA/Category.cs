@@ -23,7 +23,9 @@ namespace Book.DATA
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
+        public int AppUserId { get; set; }
     
+        public virtual AppUser AppUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MyBook> MyBook { get; set; }
     }

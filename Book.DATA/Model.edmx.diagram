@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b68d9c0960cb404aa32c88e196e5de15" Name="Diagram1">
-        <EntityTypeShape EntityType="BookModel.AppUser" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookModel.Category" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookModel.MyBook" Width="1.5" PointX="3" PointY="2.875" />
-        <AssociationConnector Association="BookModel.FK__MyBook__AppUserI__3F466844" />
-        <AssociationConnector Association="BookModel.FK__MyBook__Category__403A8C7D" />
-        </Diagram>
+      <Diagram DiagramId="b480e4f97fd041e7a8f8bb087da39061" Name="Diagram1">
+        <EntityTypeShape EntityType="BookModel.AppUser" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Category" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.MyBook" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="BookModel.FK__Category__AppUse__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK__MyBook__AppUserI__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK__MyBook__Category__403A8C7D" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -24,8 +24,11 @@ namespace Book.UI.Controllers
         {
             AppUser appUser = (AppUser)Session["LoggedUser"];
 
+            Category category = new Category();
+
             if (appUser != null)
             {
+               
                 List<Category> categoryList = categoryOperation.GetAllCategory(appUser.AppUserId);
 
                 List<CategoryListViewModel> categoryListViewModelList = new List<CategoryListViewModel>();
@@ -75,5 +78,52 @@ namespace Book.UI.Controllers
                 return RedirectToAction("Login","Home");
             }
         }
+
+        [HttpGet]
+        public ActionResult Update(int id = 0)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
+
+            if (appUser != null)
+            {
+                Category category = categoryOperation.GetById(id);
+
+                if (category != null)
+                {
+                    CategoryCRUDModel categoryCRUDModel = new CategoryCRUDModel();
+
+                    categoryCRUDModel.CategoryId = category.CategoryId;
+                    categoryCRUDModel.Name = category.Name;
+
+                    return View(categoryCRUDModel);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Category");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }          
+        }
+
+        [HttpPost]
+        public ActionResult Update(CategoryCRUDModel model)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                Category category = categoryOperation.GetById(model.CategoryId);
+
+                category.CategoryId = model.CategoryId;
+                category.Name = model.Name;
+
+                categoryOperation.Update(category);
+            }
+
+            return RedirectToAction("Index", "Category");
+        }
+
+        
     }
 }
