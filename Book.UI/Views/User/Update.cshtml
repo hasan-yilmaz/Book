@@ -1,0 +1,33 @@
+﻿@model Book.UI.Models.AppUserCRUDModel
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+@using (Html.BeginForm("Update", "User", FormMethod.Post))
+{
+    @Html.HiddenFor(s=>s.AppUserId)
+
+    <div class="form-group">
+
+        <div class="form-group">
+            @Html.TextBoxFor(s=>s.FullName,new { @class="form-control",required=""})
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(s=>s.Email,new {@class="form-control",required="" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(s=>s.Password,new { @class="form-control",required=""})
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Güncelle" />
+        </div>
+
+    </div>
+
+}
+

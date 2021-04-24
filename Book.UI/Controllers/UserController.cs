@@ -48,5 +48,54 @@ namespace Book.UI.Controllers
             }
            
         }
+
+        [HttpGet]
+        public ActionResult Update(int id = 0)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
+
+            if (appUser != null)
+            {
+                AppUser app = appUserOperation.GetById(id);
+
+                if (app != null)
+                {
+                    AppUserCRUDModel appUserCRUDModel = new AppUserCRUDModel();
+
+                    appUserCRUDModel.AppUserId = app.AppUserId;
+                    appUserCRUDModel.FullName = app.FullName;
+                    appUserCRUDModel.Email = app.Email;
+                    appUserCRUDModel.Password = app.Password;
+
+                    return View(appUserCRUDModel);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+           
+        }
+
+        [HttpPost]
+        public ActionResult Update(AppUserCRUDModel model)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                AppUser appUser = appUserOperation.GetById(model.AppUserId);
+
+                appUser.AppUserId = model.AppUserId;
+                appUser.FullName = model.FullName;
+                appUser.Email = model.Email;
+                appUser.Password = model.Password;
+
+                appUserOperation.Update(appUser);
+            }
+            return RedirectToAction("Index","Home");
+        }
     }
 }

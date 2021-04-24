@@ -14,6 +14,7 @@
         <th>Ad Soyad</th>
         <th>Email</th>
         <th>Şifre</th>
+        <th>Güncelle</th>
         
     </tr>
 
@@ -23,6 +24,7 @@
             <td>@appUser.FullName</td>
             <td>@appUser.Email</td>
             <td>@appUser.Password</td>
+            <td><a href="@Url.Action("Update","User",new { @id=appUser.AppUserId})" class="btn btn-success">Güncelle</a></td>
         </tr>
     }
 
