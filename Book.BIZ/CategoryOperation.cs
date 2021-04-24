@@ -24,7 +24,7 @@ namespace Book.BIZ
 
         public List<Category> GetAllCategory(int appUserId)
         {
-            List<Category> categoryList = db.Category.Where(s => s.CategoryId == appUserId).ToList();
+            List<Category> categoryList = db.Category.Where(s => s.AppUserId == appUserId).ToList();
             return categoryList;
         }
 
