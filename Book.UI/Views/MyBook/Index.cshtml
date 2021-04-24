@@ -1,7 +1,55 @@
-﻿
+﻿@using Book.UI.Models
+@model List<MyBookListViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+<a href="@Url.Action("Insert","MyBook")" class="btn btn-success">Kitap Ekle</a>
+
+<table class="table table-bordered ">
+
+    <tr>
+        <th>Resim</th>
+        <th>Kitap Adı</th>
+        <th>Kitap Yazarı</th>
+        <th>Kitap Kategori</th>
+        <th>Güncelle</th>
+        <th>Durum</th>
+        <th>Sil</th>
+    </tr>
+
+    @foreach (MyBookListViewModel book in Model)
+    {
+        <tr>
+            <td><img src="~/Content/Picture/@book.ImageFile" height="100" width="100"</td>
+            <td>@book.Name</td>
+            <td>@book.Writer</td>
+            <td>@book.CategoryId</td>
+            <td><a href="@Url.Action("Update","MyBook",new { @id=book.BookId})" class="btn btn-success">Güncelle></a></td>
+            <td>
+                @if (book.IsActive)
+                {
+                    <h3 class="label-primary">Aktif</h3>
+                }
+                else
+                {
+                    <h3 class="label-warning">Pasif</h3>
+                }
+            </td>
+
+            <td>
+                @if (book.IsActive)
+                {
+                    <a href="@Url.Action("ActiveOrPassive","MyBook",new { @id=book.BookId})" class="btn btn-success">Aktif</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("ActiveOrPassive","MyBook",new { @id=book.BookId})" class="btn btn-danger">Pasif</a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

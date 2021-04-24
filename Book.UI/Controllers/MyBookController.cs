@@ -1,5 +1,6 @@
 ﻿using Book.BIZ;
 using Book.DATA;
+using Book.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,34 @@ namespace Book.UI.Controllers
 
         public ActionResult Index()
         {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
 
-            return View();
+            if (appUser != null)
+            {
+                List<MyBook> myBookList = myBookOperation.GetAllBook(appUser.AppUserId);
+
+                List<MyBookListViewModel> myBookListViewModelList = new List<MyBookListViewModel>();
+
+                foreach (MyBook book in myBookList)
+                {
+                    myBookListViewModelList.Add(new MyBookListViewModel()
+                    {
+                        BookId = book.BookId,
+                        Name = book.Name,
+                        Writer = book.Writer,
+                        CategoryId = book.CategoryId,
+                        ImagePath = book.Image,
+                        IsActive = book.IsActive
+                    });
+                }
+                return View(myBookListViewModelList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
+
+
     }
 }
