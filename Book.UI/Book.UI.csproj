@@ -125,6 +125,7 @@
     <Compile Include="Models\CategoryCRUDModel.cs" />
     <Compile Include="Models\CategoryListViewModel.cs" />
     <Compile Include="Models\LoginCRUDModel.cs" />
+    <Compile Include="Models\MyBookCRUDModel.cs" />
     <Compile Include="Models\MyBookListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <Content Include="Views\Category\Insert.cshtml" />
     <Content Include="Views\Category\Update.cshtml" />
     <Content Include="Views\MyBook\Index.cshtml" />
+    <Content Include="Views\MyBook\Insert.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

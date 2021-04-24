@@ -13,11 +13,13 @@ namespace Book.UI.Controllers
     {
         BookEntities db;
         MyBookOperation myBookOperation;
+        CategoryOperation categoryOperation;
 
         public MyBookController()
         {
             db = new BookEntities();
             myBookOperation = new MyBookOperation(db);
+            categoryOperation = new CategoryOperation(db);
         }
 
 
@@ -44,6 +46,66 @@ namespace Book.UI.Controllers
                     });
                 }
                 return View(myBookListViewModelList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Insert(int id=0)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
+
+            if (appUser != null)
+            {
+                MyBookCRUDModel myBookCRUDModel = new MyBookCRUDModel();
+
+                List<Category> categoryList = categoryOperation.GetAllCategory(appUser.AppUserId);
+                myBookCRUDModel.CategoryList = new SelectList(categoryList, "CategoryId", "Name");
+
+                return View(myBookCRUDModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Insert(MyBookCRUDModel model)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
+
+            if (appUser != null)
+            {
+
+                #region Upload
+
+                string Imagee = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    Imagee = model.ImageFile.FileName;
+                    model.ImageFile.SaveAs(Server.MapPath("~/Content/Picture/") + model.ImageFile.FileName);
+                }
+
+                #endregion
+                MyBook myBook = new MyBook()
+                {
+                    
+                    BookId = model.BookId,
+                    AppUserId=appUser.AppUserId,
+                    Name=model.Name,
+                    Writer=model.Writer,
+                    CategoryId=model.CategoryId,
+                    Image=model.ImagePath,
+                    IsActive=true
+                };
+                myBookOperation.Insert(myBook);
+
+                return RedirectToAction("Index", "MyBook");
             }
             else
             {
