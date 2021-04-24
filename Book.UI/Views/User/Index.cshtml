@@ -15,7 +15,9 @@
         <th>Email</th>
         <th>Şifre</th>
         <th>Güncelle</th>
-        
+        <th>Durum</th>
+        <th>IsActive</th>
+
     </tr>
 
     @foreach (AppUserListVİewModel appUser in Model)
@@ -25,6 +27,26 @@
             <td>@appUser.Email</td>
             <td>@appUser.Password</td>
             <td><a href="@Url.Action("Update","User",new { @id=appUser.AppUserId})" class="btn btn-success">Güncelle</a></td>
+            <td>
+                @if (appUser.IsActive)
+                {
+                    <h3 class="label-primary">Aktif</h3>
+                }
+                else
+                {
+                    <h3 class="label-warning">Pasif</h3>
+                }
+            </td>
+            <td>
+                @if (appUser.IsActive)
+                {
+                    <a href="@Url.Action("ActiveOrPassive","User",new { @id=appUser.AppUserId})" class="btn btn-success">Aktif</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("ActiveOrPassive","User",new { @id=appUser.AppUserId})" class="btn btn-danger">Pasif</a>
+                }
+            </td>
         </tr>
     }
 

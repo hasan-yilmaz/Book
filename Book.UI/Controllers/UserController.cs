@@ -97,5 +97,30 @@ namespace Book.UI.Controllers
             }
             return RedirectToAction("Index","Home");
         }
+
+        public ActionResult ActiveOrPassive(int id = 0)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                AppUser appUser = db.AppUser.Where(s => s.AppUserId == id).SingleOrDefault();
+
+
+                if (appUser != null) 
+                {
+                    appUser.IsActive = false;
+                }
+                else
+                {
+                    appUser.IsActive = true;
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+           
+        }
     }
 }
