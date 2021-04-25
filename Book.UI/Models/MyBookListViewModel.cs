@@ -10,13 +10,11 @@ namespace Book.UI.Models
     {
         public int BookId { get; set; }
 
-        public int AppUserId { get; set; }
-
         public string Name { get; set; }
 
         public string Writer { get; set; }
 
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         public string ImagePath { get; set; }
 

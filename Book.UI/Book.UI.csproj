@@ -146,6 +146,7 @@
     <Content Include="Views\Category\Update.cshtml" />
     <Content Include="Views\MyBook\Index.cshtml" />
     <Content Include="Views\MyBook\Insert.cshtml" />
+    <Content Include="Views\MyBook\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

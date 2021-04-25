@@ -19,7 +19,7 @@ namespace Book.BIZ
 
         public List<MyBook> GetAllBook(int appUserId)
         {
-            List<MyBook> myBookList = db.MyBook.Where(s => s.BookId == appUserId).ToList();
+            List<MyBook> myBookList = db.MyBook.Where(s => s.AppUserId == appUserId).ToList();
             return myBookList;
         }
 

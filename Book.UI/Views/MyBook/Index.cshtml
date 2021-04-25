@@ -23,11 +23,11 @@
     @foreach (MyBookListViewModel book in Model)
     {
         <tr>
-            <td><img src="~/Content/Picture/@book.ImageFile" height="100" width="100"</td>
+            <td><img src="~/Content/Picture/@book.ImagePath" height="100" width="100" /></td>
             <td>@book.Name</td>
             <td>@book.Writer</td>
             <td>@book.CategoryId</td>
-            <td><a href="@Url.Action("Update","MyBook",new { @id=book.BookId})" class="btn btn-success">Güncelle></a></td>
+            <td><a href="@Url.Action("Update","MyBook",new { @id=book.BookId})" class="btn btn-success">Güncelle</a></td>
             <td>
                 @if (book.IsActive)
                 {

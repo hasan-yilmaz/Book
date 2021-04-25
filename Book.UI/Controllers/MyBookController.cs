@@ -40,7 +40,7 @@ namespace Book.UI.Controllers
                         BookId = book.BookId,
                         Name = book.Name,
                         Writer = book.Writer,
-                        CategoryId = book.CategoryId,
+                        CategoryId = book.Category.Name,
                         ImagePath = book.Image,
                         IsActive = book.IsActive
                     });
@@ -92,6 +92,8 @@ namespace Book.UI.Controllers
                 }
 
                 #endregion
+
+
                 MyBook myBook = new MyBook()
                 {
                     
@@ -100,7 +102,7 @@ namespace Book.UI.Controllers
                     Name=model.Name,
                     Writer=model.Writer,
                     CategoryId=model.CategoryId,
-                    Image=model.ImagePath,
+                    Image=Imagee,
                     IsActive=true
                 };
                 myBookOperation.Insert(myBook);
@@ -113,6 +115,71 @@ namespace Book.UI.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Update(int id = 0)
+        {
+            AppUser appUser = (AppUser)Session["LoggedUser"];
 
+            if (appUser != null)
+            {
+                MyBook myBook = myBookOperation.GetById(id);
+
+                if (myBook != null)
+                {
+                    MyBookCRUDModel myBookCRUDModel = new MyBookCRUDModel();
+
+
+                    List<Category> categoryList = categoryOperation.GetAllCategory(appUser.AppUserId);
+                    myBookCRUDModel.CategoryList = new SelectList(categoryList, "CategoryId", "Name");
+
+                    myBookCRUDModel.BookId = myBook.BookId;
+                    myBookCRUDModel.Name = myBook.Name;
+                    myBookCRUDModel.Writer = myBook.Writer;
+                    myBookCRUDModel.ImagePath = myBook.Image;
+                    myBookCRUDModel.CategoryId = myBook.CategoryId;
+
+                    return View(myBookCRUDModel);
+                }
+                else
+                {
+                    return RedirectToAction("Index","MyBook");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Update(MyBookCRUDModel model)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                MyBook myBook = myBookOperation.GetById(model.BookId);
+
+                myBook.BookId = model.BookId;
+                myBook.Name = model.Name;
+                myBook.Writer = model.Writer;
+                myBook.Image = model.ImagePath;
+                myBook.CategoryId = model.CategoryId;
+
+                #region Upload
+
+                string Imagee = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    Imagee = model.ImageFile.FileName;
+                    model.ImageFile.SaveAs(Server.MapPath("~/Content/Picture/") + model.ImageFile.FileName);
+                    myBook.Image = Imagee;
+                }
+                #endregion
+
+                myBookOperation.Update(myBook);
+            }
+
+            return RedirectToAction("Index", "MyBook");
+        }
     }
 }

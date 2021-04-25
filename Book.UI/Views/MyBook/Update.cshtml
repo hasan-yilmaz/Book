@@ -1,0 +1,34 @@
+﻿@model Book.UI.Models.MyBookCRUDModel
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+@using (Html.BeginForm("Update","MyBook",FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(s=>s.BookId)
+
+    <div class="form-group">
+
+        <div class="form-group">
+            @Html.TextBoxFor(s=>s.ImageFile,new { @class="form-control",type="File",placeholder="Dosya Ekle",required=""})
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(s => s.Name, new { @class="form-control",required=""})
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(s => s.Writer, new { @class="form-control",required=""})
+        </div>
+
+        <div class="form-group">
+            @Html.DropDownListFor(s=>s.CategoryId,Model.CategoryList,new { @class="form-control",required=""})
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Güncelle" />
+        </div>
+    </div>
+}
