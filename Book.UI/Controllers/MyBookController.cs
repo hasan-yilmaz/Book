@@ -181,5 +181,30 @@ namespace Book.UI.Controllers
 
             return RedirectToAction("Index", "MyBook");
         }
+
+        public ActionResult ActiveOrPassive(int id = 0)
+        {
+            if (Session["LoggedUser"] != null)
+            {
+                MyBook myBook = myBookOperation.GetById(id);
+
+                if (myBook.IsActive)
+                {
+                    myBook.IsActive = false;
+                }
+                else
+                {
+                    myBook.IsActive = true;
+                }
+
+                myBookOperation.Update(myBook);
+                return RedirectToAction("Index", "MyBook");
+            }
+            else
+            {
+                return RedirectToAction("Login","Home");
+            }
+           
+        }
     }
 }
